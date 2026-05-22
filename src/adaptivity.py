@@ -45,8 +45,9 @@ class Adaptivity:
             prof_rel_error = 0.0
             if u_norm > 1e-15:
                 standard_rel_error = (error_norm / u_norm) * 100.0
-            if (u_norm + error_norm) > 1e-15:
-                prof_rel_error = (error_norm / (u_norm + error_norm)) * 100.0
+            denominator_sq = u_norm**2 + error_norm**2
+            if denominator_sq > 1e-30:
+                prof_rel_error = (error_norm / np.sqrt(denominator_sq)) * 100.0
 
             d_N = 0.0
             if iteration > 0:
